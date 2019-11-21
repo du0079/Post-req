@@ -2,27 +2,27 @@ var express = require("express");
 var app=express();
 app.set("view engine","ejs");
  
-var bodyparser = require("bodyparser");
+var bodyparser = require("body-parser");
 
-app.usr(bodyparser.urlencode({extended: true}));
+app.use(bodyparser.urlencoded({extended: true}));
 var dost = ["Abhishek","Vishal pratap singh Chandel", "Rahul","Bobby"];
 // app.use(express.static("view"));
 
+app.get("/friends",function(req,res){
+	
+	res.render("friend",{dosti: dost});
+});
 
 app.post("/addfriend",function(req,res){
        var newf=req.body.newfriend;
        dost.push(newf);
-	res.redirect("/addfriend");
+	res.redirect("/friends");
 });
 
 app.get("/",function(req,res){
 	res.render("home")
 });
 
-app.get("/friends",function(req,res){
-	
-	res.render("friend",{dosti: dost});
-});
 
 
 
